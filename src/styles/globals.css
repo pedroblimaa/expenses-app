@@ -1,0 +1,50 @@
+/* create a background primary and sec color as var */
+:root {
+  --bg-pri-color: #0f0f0f;
+  --bg-sec-color: #1e1e1e;
+  --text-color: #fff;
+  --text-sec-color: #ccc;
+  --accent-color: #264592;
+  --accent-color-hover: #1e3a7a;
+  
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: "Open Sans", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Typography reset */
+body {
+  line-height: 1;
+  background-color: #0f0f0f;
+  color: #fff;
+}
+
+/* List reset */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Anchor reset */
+a {
+  text-decoration: none;
+}
+
+/* Tables reset */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

@@ -1,0 +1,28 @@
+.PageHeader {
+  background-color: var(--bg-sec-color);
+  color: var(--text-color);
+  padding: 20px;
+  text-align: center;
+}
+
+.PageTitle {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.ToggleThemeBtn {
+  float: right;
+  margin-top: -40px;
+  margin-right: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.ToggleThemeBtn:hover {
+  background-color: var(--accent-color-hover);
+}
