@@ -7,7 +7,7 @@ interface Props {
 
 const SpendingItem = ({ description, amount }: Props) => {
   return (
-    <li>
+    <li className={styles.SpendingItem}>
       {description} - ${amount.toFixed(2)}
     </li>
   )

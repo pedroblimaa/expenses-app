@@ -1,35 +1,41 @@
-import { useState } from "react"
+import { useContext, useState } from 'react'
 
-import styles from "@/styles/SpendingForm.module.css"
+import { ExpenseContext } from '@/context/expenseContext'
+import styles from '@/styles/SpendingForm.module.css'
+import CreatedExpense from '@/types/CreatedExpense'
 
-interface Spending {
-  name: string
-  amount: number
-}
+const SpendingForm = () => {
+  const [description, setDescription] = useState('')
+  const [amount, setAmount] = useState('')
+  const { addExpense } = useContext(ExpenseContext)
 
-interface Props {
-  onAddSpending: (description: string, amount: number) => void
-}
+  const createExpense = () => {
+    const numAmount = convertToNumber(amount)
+    if (numAmount <= 0 || description.trim() === '') {
+      return
+    }
 
-const SpendingForm = ({ onAddSpending }: Props) => {
-  const [description, setDescription] = useState("")
-  const [amount, setAmount] = useState("")
+    const expense: CreatedExpense = {
+      description,
+      amount: numAmount,
+    }
+
+    return expense
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const numAmount = convertToNumber(amount)
-    if (numAmount <= 0 || description.trim() === "") {
-      return
+    const expense = createExpense()
+
+    if (expense) {
+      addExpense(expense)
+      setDescription('')
+      setAmount('')
     }
-    onAddSpending(description, convertToNumber(amount))
-    setDescription("")
-    setAmount("")
   }
 
   const convertToNumber = (value: string) => {
-    const standardNumber = value.replace(".", "").replace(",", ".")
-    console.log(standardNumber)
-    console.log(parseFloat(standardNumber))
+    const standardNumber = value.replace('.', '').replace(',', '.')
     return parseFloat(standardNumber) || 0
   }
 
@@ -41,7 +47,7 @@ const SpendingForm = ({ onAddSpending }: Props) => {
           className={styles.FormInput}
           type="text"
           value={description}
-          onChange={(event) => setDescription(event.target.value)}
+          onChange={event => setDescription(event.target.value)}
         />
       </label>
       <label className={styles.InputLabel}>
@@ -50,8 +56,8 @@ const SpendingForm = ({ onAddSpending }: Props) => {
           className={styles.FormInput}
           type="text"
           value={amount}
-          onChange={(event) => setAmount(event.target.value)}
-          onBlur={(event) => setAmount(convertToNumber(amount).toFixed(2).replace(".", ","))}
+          onChange={event => setAmount(event.target.value)}
+          onBlur={event => setAmount(convertToNumber(amount).toFixed(2).replace('.', ','))}
         />
       </label>
       <button className={styles.SubmitBtn} type="submit">
