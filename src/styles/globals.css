@@ -6,7 +6,7 @@
   --text-sec-color: #ccc;
   --accent-color: #264592;
   --accent-color-hover: #1e3a7a;
-  
+  --shadow-color: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -16,7 +16,7 @@
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 *,

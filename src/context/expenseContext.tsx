@@ -7,11 +7,13 @@ import CreatedExpense from '@/types/CreatedExpense'
 type ExpenseContextType = {
   expenses: Expense[]
   addExpense: (newExpense: CreatedExpense) => void
+  deleteExpense: (id: number) => void
 }
 
 const ExpenseContext = createContext<ExpenseContextType>({
   expenses: [] as Expense[],
   addExpense: (newExpense: CreatedExpense) => {},
+  deleteExpense: (id: number) => {}
 })
 
 const ExpenseProvider = ({ children }: any) => {
@@ -35,7 +37,19 @@ const ExpenseProvider = ({ children }: any) => {
     }
   }, [])
 
-  const expenseContextValue = useMemo(() => ({ expenses, addExpense }), [expenses, addExpense])
+  const deleteExpense = useCallback(async (id: number) => {
+    try {
+      await axios.delete(API_BASE_URL + '/expenses/' + id)
+      setExpenses(prevExpenses => prevExpenses.filter(expense => expense._id != id))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  const expenseContextValue = useMemo(
+    () => ({ expenses, addExpense, deleteExpense }),
+    [expenses, addExpense, deleteExpense]
+  )
 
   return <ExpenseContext.Provider value={expenseContextValue}>{children}</ExpenseContext.Provider>
 }
